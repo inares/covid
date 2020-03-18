@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- License MIT -->
+
 <html>
 <head>
     <title>Attestation de déplacement</title>
@@ -15,30 +18,23 @@
         margin: 1em auto;
         font-family: Verdana, Geneva, sans-serif;
     }
+    
+    #information { display: table; border-spacing: 1em; }
+    #information .formfield { display: table-row;  }
+    #information .formfield * { vertical-align: top; }
+    #information .formfield label { display: table-cell; }
+    #information .formfield textarea { resize: none; }
+    #information .formfield input,textarea,span { display: table-cell; border: 1px solid #999; width: 300px; padding: 2px; }
 
-    button {font-size: 2em; border: 1px solid black;}
+    button {font-size: 1.25em; border: 1px solid black;}
     footer {font-size: 1em; margin-top: 50px;}
     canvas {border-radius: 8px;}
-
-    #page {
-        border: 1px solid black;
-        padding: 1em;
-    }
 
     input, label, p {
         font-size: 1em;
     }
-
-    .lbl {
-        display: inline-block;
-        width: 8em;
-    }
-
-    #name, #born, #address {
-        width: 10em;
-        border: 1px solid #999;
-        margin-bottom: 1em;
-    }
+    
+    #signature {border: 1px solid #999;}
 
     #date, #place {
         border: 1px solid #999;
@@ -56,102 +52,126 @@
         background-color: #fcc;
         padding: 1em;
         margin-bottom: 1em;
+        text-align: center;
     }
 
-    @media screen and (max-width : 640px) {
-        html { font-size: 200%;}
-        input[type=radio] {zoom: 200%;}
+    @media screen and (max-width: 640px) {
+        /* html { font-size: 200%;} */
         canvas {font-size: 100%;}
         #page {padding: 1em; border: 0;}
+    }
+
+    @media screen and (min-width: 640px) {
+        #page {padding: 1em; border: 1px solid black;}
     }
 
     @media print {
         #reset_btn {display: none;}
         footer {display: none;}
         body {margin: 0;}
-        #page {padding: 0; border: 0;}
+        #page {margin-top: 4%; margin-right: 4%; margin-left: 4%; }
         #warning, #info {display: none;}
+        input,textarea,span {border: 0px solid white !important; background-color: white !important;}
+        #signature {border: 0;}
+        button {display: none;}
+        
+        input:-webkit-autofill,input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+        }
     }
-
-
+    
+    input[type=checkbox] {zoom: 125%;}
 </style>
 
-<div id='info'>Attention, l'attestation sur telephone ne serait finalement pas valable; attendons la suite (voir <a href="https://www.bfmtv.com/tech/confinement-finalement-l-attestation-sur-smartphone-ne-suffit-pas-1877104.html">cet article de bfmtv)</a>. Elle reste cependant toujours valable en l'imprimant</div>
+<div id='info'>Attention, l'attestation sur telephone n'est pas valable. Il faut l'imprimer obligatoirement.</div>
 
 <div id='warning'>Avez vous <b>VRAIMENT</b> besoin de cette attestation ? Rappelez vous que rester confiné sauve des vies !</div>
 
 <div id='page'>
+    <br/>
 
-<center><h1>ATTESTATION DE DÉPLACEMENT DÉROGATOIRE</h1></center>
+    <center>
+        <h2>ATTESTATION DE DÉPLACEMENT DÉROGATOIRE</h2>
 
-<p>En application de l'article 1er du décret du 16 mars 2020 portant réglementation des déplacements dans le cadre de la lutte contre la propagation du virus Covid-19 :</p>
+        <p>En application de l'article 1er du décret du 16 mars 2020 portant réglementation des déplacements dans le cadre de la lutte contre la propagation du virus Covid-19 :</p>
+    </center>
+    <br/>
 
-
-<form>
     <p><b>Je soussigné(e)</b></p>
-    <br/>
-    <label class="lbl" for="name"><b>Mme / M.</b></label>
-    <input id="name" type="text"><br/>
+    <form id="information">
+        <p class="formfield">
+            <label for="name"><b>Mme / M.</b></label>
+            <input id="name" type="text">
+        </p>
 
-    <label class="lbl" for="born"><b>Né(e) le :</b></label>
-    <input id="born" type="text" placeholder="jj/mm/aaaa"><br/>
+        <p class="formfield">
+            <label for="born"><b>Né(e) le :</b></label>
+            <input id="born" type="text" placeholder="jj/mm/aaaa">
+        </p>
 
-    <label class="lbl" for="address"><b>Demeurant :</b></label>
-    <input id="address" type="text"><br/>
+        <p class="formfield">
+            <label for="address"><b>Demeurant :</b></label>
+            <span contenteditable id="address"></span>
+        </p>
+    </form>
 
-    <br/>
-    <p>certifie que mon déplacement est lié au motif suivant (cocher la case) autorisé par l'article 1er du décret du 16 mars 2020 portant réglementation des déplacements dans le cadre de la lutte contre la propagation du virus Covid-19:</p>
-    <br/>
-    <p>
-        <input id="choix_a" type="radio" name="choix">
-        <label for="choix_a" id="label_choix_a">déplacements entre le domicile et le lieu d'exercice de l'activité professionnelle, lorsqu'ils sont indispensables à l'exercice d'activités ne pouvant être organisées sous forme de télétravail (sur justificatif permanent) ou déplacements professionnels ne pouvant être différés;</label>
-    </p>
+    <form>
+        <p>certifie que mon déplacement est lié au motif suivant (cocher la case) autorisé par l'article 1er du décret du 16 mars 2020 portant réglementation des déplacements dans le cadre de la lutte contre la propagation du virus Covid-19:</p>
+        <p>
+            <input id="choix_a" type="checkbox" name="choix1">
+            <label for="choix_a" id="label_choix_a">déplacements entre le domicile et le lieu d'exercice de l'activité professionnelle, lorsqu'ils sont indispensables à l'exercice d'activités ne pouvant être organisées sous forme de télétravail (sur justificatif permanent) ou déplacements professionnels ne pouvant être différés;</label>
+        </p>
 
-    <p>
-        <input id="choix_b" type="radio" name="choix">
-        <label for="choix_b" id="label_choix_b">déplacements pour effectuer des achats de première nécessité dans des établissements autorisés (liste sur gouvernement.fr);</label>
-    </p>
+        <p>
+            <input id="choix_b" type="checkbox" name="choix2">
+            <label for="choix_b" id="label_choix_b">déplacements pour effectuer des achats de première nécessité dans des établissements autorisés (liste sur gouvernement.fr);</label>
+        </p>
 
-    <p>
-        <input id="choix_c" type="radio" name="choix">
-        <label for="choix_c" id="label_choix_c">déplacements pour motif de santé;</label>
-    </p>
+        <p>
+            <input id="choix_c" type="checkbox" name="choix3">
+            <label for="choix_c" id="label_choix_c">déplacements pour motif de santé;</label>
+        </p>
 
-    <p>
-        <input id="choix_d" type="radio" name="choix">
-        <label for="choix_d" id="label_choix_d">déplacements pour motif familial impérieux, pour l'assistance aux personnes vulnérables ou la garde d'enfants;</label>
-    </p>
+        <p>
+            <input id="choix_d" type="checkbox" name="choix4">
+            <label for="choix_d" id="label_choix_d">déplacements pour motif familial impérieux, pour l'assistance aux personnes vulnérables ou la garde d'enfants;</label>
+        </p>
 
-    <p>
-        <input id="choix_e" type="radio" name="choix">
-        <label for="choix_e" id="label_choix_e">déplacements brefs, à proximité du domicile, liés à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive collective, et aux besoins des animaux de compagnie.</label>
-    </p>
+        <p>
+            <input id="choix_e" type="checkbox" name="choix5">
+            <label for="choix_e" id="label_choix_e">déplacements brefs, à proximité du domicile, liés à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive collective, et aux besoins des animaux de compagnie.</label>
+        </p>
 
-    <p align="right">
-        <label for="place">Fait à </label><input type="text" id="place">
-        <label for="date">&nbsp;le </label><input type="text" id="date"><br>
-        (signature)<br/><br/>
-        <canvas style="border: 1px solid #999" id="signature" width="600" height="200"></canvas><br/>
-        <button type="button" onclick="can_clear();" id="clear_btn">Effacer</button>
+        <p align="right">
+            <label for="place">Fait à </label><input type="text" id="place">
+            <label for="date">&nbsp;le </label><input type="text" id="date" style="width: 120px;"><br>
+            <br/>(signature)<br/>
+            <canvas id="signature" width="600" height="200"></canvas><br/>
+            <button type="button" onclick="can_clear();" id="clear_btn">Effacer</button>
 
-    </p>
+        </p>
 
-</form>
+    </form>
 
-<center><button onclick="render();" id="render_btn">Génerer</button></center><br/>
-<center><button onclick="window.location.reload();" id="reset_btn">Remise à zéro</button></center>
-
+    <center><button id="print" onclick="myPrint()">Imprimer</button></center><br/>
 </div>
 
-<center><footer>Site créé par <a href="https://www.linkedin.com/in/romaingay/">Romain Gay</a>.<br/>
-J'ai eu cette initiative pour aider mon entourage et j'ai décidé de la partager auprès de la communauté.<br/>
-Ce site est exécuté sur votre navigateur uniquement et je ne collecte aucune information.<br/>
-Le code source est <a href="https://github.com/vikbez/covid-sortie">disponible sur github.com</a><br/><br/>License MIT</footer></center>
+<footer><center>D'une idée de <a href="https://www.linkedin.com/in/romaingay/">Romain Gay</a>.<br/>
+Ce site est exécuté sur votre navigateur uniquement et ne collecte aucune information.<br/><br/>
+</footer>
 
 <script type="text/javascript">
+    function myPrint() {
+        window.print();
+    }
 
     function $(id) { return document.getElementById(id); }
-
+    
     $('date').value = new Date().toLocaleDateString('fr-FR');
 
     // CANVAS HANDLING
@@ -217,33 +237,6 @@ Le code source est <a href="https://github.com/vikbez/covid-sortie">disponible s
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         return false;
     }
-
-    // RENDERING
-
-    function render() {
-        canvas.removeEventListener('mousedown', ev_mousedown);
-        canvas.style.cssText = "border: none;";
-
-        $("clear_btn").remove();
-        $("render_btn").remove();
-
-        to_render = ['name', 'born', 'address', 'place', 'date'];
-        to_render.forEach(function(el) {
-            $(el).insertAdjacentHTML('afterend', $(el).value);
-            $(el).remove();
-        });
-
-        to_disable = ['choix_a', 'choix_b', 'choix_c', 'choix_d', 'choix_e'];
-        to_disable.forEach(function(el) {
-            if (!$(el).checked) {
-                $(el).remove();
-                $('label_' + el).remove();
-            }
-        });
-
-        window.print();
-    }
-
 </script>
 
 </body>
