@@ -24,7 +24,7 @@
     #information .formfield * { vertical-align: top; }
     #information .formfield label { display: table-cell; }
     #information .formfield textarea { resize: none; }
-    #information .formfield input,textarea,span { display: table-cell; border: 1px solid #999; width: 300px; padding: 2px; }
+    #information .formfield input, #information .formfield textarea, #information .formfield span { display: table-cell; border: 1px solid #999; width: 300px; padding: 2px; }
 
     button {font-size: 1.25em; border: 1px solid black;}
     footer {font-size: 1em; margin-top: 50px;}
@@ -69,7 +69,7 @@
         #reset_btn {display: none;}
         footer {display: none;}
         body {margin: 0;}
-        #page {margin-top: 4%; margin-right: 4%; margin-left: 4%; }
+        #page {margin-top: 10px; margin-right: 30px; margin-left: 30px; }
         #warning, #info {display: none;}
         input,textarea,span {border: 0px solid white !important; background-color: white !important;}
         #signature {border: 0;}
@@ -93,16 +93,13 @@
 <div id='warning'>Avez vous <b>VRAIMENT</b> besoin de cette attestation ? Rappelez vous que rester confiné sauve des vies !</div>
 
 <div id='page'>
-    <br/>
-
     <center>
         <h2>ATTESTATION DE DÉPLACEMENT DÉROGATOIRE</h2>
 
         <p>En application de l'article 1er du décret du 16 mars 2020 portant réglementation des déplacements dans le cadre de la lutte contre la propagation du virus Covid-19 :</p>
     </center>
-    <br/>
 
-    <p><b>Je soussigné(e)</b></p>
+    <span><b>Je soussigné(e)</b></span>
     <form id="information">
         <p class="formfield">
             <label for="name"><b>Mme / M.</b></label>
@@ -148,7 +145,7 @@
         </p>
 
         <p align="right">
-            <label for="place">Fait à </label><input type="text" id="place">
+            <label for="place">Fait à </label><input type="text" id="place" style="width: 250px;">
             <label for="date">&nbsp;le </label><input type="text" id="date" style="width: 120px;"><br>
             <br/>(signature)<br/>
             <canvas id="signature" width="600" height="200"></canvas><br/>
